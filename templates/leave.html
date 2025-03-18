@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply for Leave</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='leave.css') }}?v=1">
+
+</head>
+<body>
+  
+ <div class="sidebar">
+    <h1>ARITHWISE</h1>
+    <a href="{{ url_for('dashboard') }}" >My Profile</a>    
+    <a href="{{ url_for('employee') }}">Employee Detail</a>
+    <a href="notice.html">Notifications</a>
+    <a href="{{ url_for('apply_leave') }}" class="active">Apply for Leave</a>
+    <a href="{{ url_for('attendance') }}">Attendance</a>
+    <!-- <a href="{{ url_for('salary_slip') }}" >Salary Slip</a>
+    -->
+    {% if user_info.type == "employee" or user_info.type == "consultant" %}
+        <a href="{{ url_for('salary_slip') }}">Salary Slip</a>
+    {% elif user_info.type == "intern" %}
+        <a href="{{ url_for('stipend') }}">Stipend</a>
+    {% endif %}
+
+   
+
+    <a href="{{ url_for('invoice') }}">Invoice</a>
+    <a href="{{ url_for('expense') }}">Expense</a>
+    <a href="{{ url_for('announcement') }}" >Announcements</a>
+    <a href="#">Calendar</a>
+    <a href="{{ url_for('contact') }}" >Contact</a>
+    <!-- <button class="logout-btn">Logout</button> -->
+    <button class="logout-btn" type="button" onclick="logoutUser()">Logout</button>
+
+
+    <!-- <button class="logout-btn">Logout</button> -->
+</div>
+
+<div class="container">
+    <!-- Leave Application Form -->
+    <div class="form-container">
+        <h2>Apply for Leave</h2>
+        <form id="leave-form" method="POST" enctype="multipart/form-data">
+            
+            <div class="form-group">
+                <label for="slot">Slot</label>
+                <select id="slot" name="slot" required>
+                    <option value="">Select Slot</option>
+                    <option value="Full Day">Full Day</option>
+                    <option value="Half Day">Half Day</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="from-date">From Date</label>
+                <input type="date" id="from-date" name="from_date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="to-date">To Date</label>
+                <input type="date" id="to-date" name="to_date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="notify-to">Notify To</label>
+                <select id="notify-to" name="apply_to" class="searchable-dropdown" multiple required>
+                    <option value="Admin">Admin</option>
+                    <option value="Bhushan Datey">Bhushan Datey</option>
+                    <option value="HR Manager">HR Manager</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="reason">Reason</label>
+                <textarea id="reason" name="reason" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="documents">Attach Document (If Required)</label>
+                <input type="file" id="documents" name="document">
+            </div>
+
+            <div class="form-group">
+                <button type="submit">Apply</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="popup" class="popup" style="display: none;"></div>
+
+    <!-- Leave Application Table -->
+    <div class="leave-table-container">
+        <h2>Leave Applications</h2>
+        <table class="leave-history">
+            <thead>
+                <tr>
+                    <th>Slot</th>
+                    <th>From Date</th>
+                    <th>To Date</th>
+                    <th>Notified To</th>
+                    <th>Reason</th>
+                    <th>Attachment</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            </table>
+            <div class="scrollable-tbody">  <!-- NEW CONTAINER -->
+              <table class="leave-history">
+                <tbody id="leave-table-body">
+                <!-- Leave applications will be dynamically added here -->
+            </tbody>
+            
+        </table>
+    </div>
+</div>
+
+
+     <script src="{{ url_for('static', filename='leave.js') }}"></script>
+
+</body>
+</html>

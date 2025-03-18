@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='signin.css') }}">
+</head>
+<body onload="showPopup('{{ success_message }}')">
+    <div class="container">
+        <div class="welcome-section">
+            <h1 class="welcome-title">Welcome to ARITHWISE</h1>
+            <h2 class="solution-engine">"The Solution Engine"</h2>
+            <p class="solutions-text">We deliver solutions with<br>Maximum Technology & Minimum Cost</p>
+            
+            <!-- <button class="learn-more-btn">Learn More</button> -->
+            <a href="https://www.arithwise.com" target="_blank" rel="noopener noreferrer">
+                <button class="learn-more-btn">Learn More</button>
+            </a>
+        </div>
+        
+        <div class="login-section">
+
+            <h1 class="login-title">Login</h1>
+            <p class="login-subtitle">Login to your account.</p>
+              <!-- Login Type Buttons -->
+              <div class="login-buttons">
+                <!-- <button type="button" class="login-btn admin-btn" onclick="setRole('admin')">Admin Login</button>
+                <button type="button" class="login-btn superadmin-btn" onclick="setRole('superadmin')">SuperAdmin Login</button>
+                <button type="button" class="login-btn employee-btn" onclick="setRole('employee')">Employee Login</button> -->
+                <button type="button" class="login-btn admin-btn" data-role="admin">Admin Login</button>
+                <button type="button" class="login-btn superadmin-btn" data-role="superadmin">SuperAdmin Login</button>
+                <button type="button" class="login-btn employee-btn" data-role="employee">Employee Login</button>
+            </div>
+            <form method="POST" action="/">
+                <!-- <input type="hidden" name="role" id="roleInput" value=""> -->
+                <!-- <button type="button" class="login-btn" data-role="admin" onclick="setRole('admin')">Admin Login</button>
+                <button type="button" class="login-btn" data-role="superadmin" onclick="setRole('superadmin')">SuperAdmin Login</button>
+                <button type="button" class="login-btn" data-role="employee" onclick="setRole('employee')">Employee Login</button> -->
+                <input type="hidden" id="roleInput">  <!-- Hidden input for role -->
+                
+                <label class="form-label">E-mail Address</label>
+                <input type="email" class="form-input" required>
+                <label class="form-label">Password</label>
+                <input type="password" class="form-input" required>
+                <div class="remember-reset">
+                    <label class="remember-me">
+                        <input type="checkbox" class="checkbox-custom">
+                        Remember me
+                    </label>
+                    <a href="#" class="reset-password">Forget Password?</a>
+                </div>
+                <button type="submit" class="sign-in-btn"><a href="{{ url_for('dashboard') }}"></a>Sign In</button>
+                <p class="signup-text">Don't have an account yet?
+                    <!-- <a href="register.html">Join ARITHWISE today.</a> -->
+                    <!-- welcome.html -->
+                    <a href="{{ url_for('register') }}">Join with ARITHWISE today</a>
+
+                </p>
+            </form>
+            <nav>
+                <!-- <a href="welcome.html">Back to Welcome</a> -->
+                <!-- <a href="{{ url_for('welcome') }}">Back to Welcome</a> -->
+
+            </nav>
+            
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='signin.js') }}"></script>
+</body>
+</html>

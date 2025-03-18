@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Management System</title>
+    <link rel="stylesheet" href="../static/admin_leave.css">  
+
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h1>ARITHWISE</h1>
+        <a href="{{ url_for('admin_dashboard') }}">Admin</a>
+        <a href="{{ url_for('admin_employee') }}" >Employee Details</a>
+        <a href="notice.html">Notification</a>
+        <a href="{{ url_for('admin_leave') }}"class="active">Leave</a>
+        <a href="{{ url_for('admin_attendance') }}">Attendance</a>
+        <a href="{{ url_for('admin_announcement') }}">Announcements</a>
+        <a href="{{ url_for('admin_contact') }}">Contact</a>
+        <button class="logout-btn">Logout</button>
+    </div>
+ 
+   <!-- Main Content -->
+    <div class="main-content">
+    <h2>Leave Management</h2>
+ 
+    <!-- All Leave Requests Table -->
+    <h3>All Leave Requests</h3>
+    <div class="table-scroll">
+        <table>
+        <thead>
+            <tr>
+                <th>Employee ID</th>
+                <th>Name</th>
+                <th>Reason</th>
+                <th>Document</th>
+                <th>From Date</th>
+                <th>To Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="leaveTableBody">
+            
+        </tbody>
+    </table> 
+    </div>
+ 
+    <!-- Upcoming Leaves Table -->
+    <h3>Upcoming Leaves</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Employee ID</th>
+                <th>Name</th>
+                <th>Reason</th>
+                <th>From Date</th>
+                <th>To Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="upcomingLeavesBody">
+            <!-- Upcoming leave requests will be inserted dynamically -->
+        </tbody>
+    </table>
+ 
+    <!-- Employees Currently on Leave Table -->
+    <h3>Employees Currently on Leave</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Employee ID</th>
+                <th>Name</th>
+                <th>Reason</th>
+                <th>From Date</th>
+                <th>To Date</th>
+            </tr>
+        </thead>
+        <tbody id="currentLeavesBody">
+            <!-- Employees currently on leave will be inserted dynamically -->
+        </tbody>
+    </table>
+</div>
+<script src="../static/admin_leave.js"></script>
+
+
+
+ 
+ 
+</body>
+</html>
+ 

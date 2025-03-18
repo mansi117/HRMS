@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Submission</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='invoice.css') }}?v=1">
+    <!-- <link rel="stylesheet" href="../static/invoice.css"> -->
+
+</head>
+<body>
+    <div class="sidebar">
+        <h1>ARITHWISE</h1>
+        <a href="{{ url_for('dashboard') }}" >My Profile</a>    
+        <a href="{{ url_for('employee') }}">Employee Detail</a>
+        <a href="notice.html">Notifications</a>
+        <a href="{{ url_for('apply_leave') }}">Apply for Leave</a>
+        <a href="{{ url_for('attendance') }}">Attendance</a>
+        <!-- <a href="{{ url_for('salary_slip') }}" >Salary Slip</a> -->
+        {% if user_info.type == "employee" or user_info.type == "consultant" %}
+            <a href="{{ url_for('salary_slip') }}">Salary Slip</a>
+        {% elif user_info.type == "intern" %}
+            <a href="{{ url_for('stipend') }}">Stipend</a>
+        {% endif %}
+
+        <a href="{{ url_for('invoice') }}" class="active">Invoice</a>
+        <a href="{{ url_for('expense') }}">Expense</a>
+        <a href="{{ url_for('announcement') }}" >Announcements</a>
+        <a href="#">Calendar</a>
+        <a href="{{ url_for('contact') }}" >Contact</a>
+        <!-- <button class="logout-btn">Logout</button> -->
+        <button class="logout-btn" type="button" onclick="logoutUser()">Logout</button>
+
+     
+    </div>
+ 
+    <div class="content">
+        <div class="form-container">
+            <h2>Submit Salary Invoice</h2>
+            <form id="invoiceForm">
+                <!-- <div class="form-group">
+                    <label for="emp_id">Employee ID</label>
+                    <input type="text" id="emp_id" name="emp_id" required>
+                </div> -->
+                <div class="form-group">
+                    <label for="upload-file">Upload Invoice Document</label>
+                    <input type="file" id="upload-file" name="upload-file" required>
+                </div>
+ 
+                <div class="button-container">
+                    <div class="form-group">
+                        <button type="submit" onclick="addInvoice()">Add Invoice</button>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" onclick="downloadSampleInvoice()">Sample Invoice</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+ 
+        <div class="filter-container">
+            <div>
+                <label for="filter-start-date">From Date:</label>
+                <input type="date" id="filter-start-date" onchange="filterInvoices()">
+            </div>
+            <div>
+                <label for="filter-end-date">To Date:</label>
+                <input type="date" id="filter-end-date" onchange="filterInvoices()">
+            </div>
+            <button onclick="filterInvoices()">Apply Filter</button>
+        </div>
+ 
+        <div class="invoice-history">
+            <h2>Submitted Invoices</h2>
+            <div class="invoice-table-container">
+                <table id="invoiceTable">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Month</th>
+                            <th>Year</th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <script src="{{ url_for('static', filename='invoice.js') }}"></script> 
+</body>
+</html>

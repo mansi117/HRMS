@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Search</title>
+    <link rel="stylesheet" href="../static/admin_employee.css">  
+
+    </head>
+<body>
+    <div class="sidebar">
+        <h1>ARITHWISE</h1>
+        <a href="{{ url_for('admin_dashboard') }}" >Admin</a>
+        <a href="{{ url_for('admin_employee') }}" class="active">Employee Details</a>
+        <a href="notice.html">Notification</a>
+        <a href="{{ url_for('admin_leave') }}">Leave</a>
+        <a href="{{ url_for('admin_attendance') }}">Attendance</a>
+        <a href="{{ url_for('admin_announcement') }}">Announcements</a>
+        <a href="{{ url_for('admin_contact') }}">Contact</a>
+        <button class="logout-btn">Logout</button>
+    </div>
+    <div class="content">
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search by name , or ID..." onkeyup="filterEmployees()">
+           
+            <!-- Filter Dropdown -->
+            <select id="filterType" onchange="filterEmployees()">
+                <option value="all">All</option>
+                <option value="Employee">Employee</option>
+                <option value="Intern">Intern</option>
+            </select>
+           
+            <!-- Sorting Dropdown -->
+            <select id="sortType" onchange="filterEmployees()">
+                <option value="atoz">A to Z</option>
+                <option value="ztoa">Z to A</option>
+            </select>
+   
+            <button onclick="filterEmployees()">Search</button>
+        </div>
+   
+   
+         
+ 
+   
+   
+        <div id="employeeContainer" class="employee-container"></div>
+ 
+        <div id="popupContainer" class="popup-container">
+            <div class="popup">
+                <!-- Close Button -->
+                <span class="close-btn" onclick="closePopup()">&times;</span>
+       
+                <div class="popup-content">
+                    <!-- Left Section: Profile -->
+                    <div class="popup-profile">
+                        <img id="popupImage" class="popup-image" alt="Employee Image">
+                        <h2 id="popupName"></h2>
+                        <p><strong>Type:</strong> <span id="popupType"></span></p>
+                    </div>
+       
+                    <!-- Right Section: Employee Details -->
+                    <div class="popup-details">
+                        <div class="popup-grid">
+                            <!-- Personal Details -->
+                            <div class="popup-section">
+                                <h3>Personal Details</h3>
+                                <p><strong>Profile Name:</strong> <span id="popupName"></span></p>
+                                <p><strong>EMP ID:</strong> <span id="popupEmpId"></span></p>
+                                <p><strong>DOB:</strong> <span id="popupDate_of_birth"></span></p>
+                                <p><strong>Email:</strong> <span id="popupEmail"></span></p>
+                                <p><strong>Address:</strong> <span id="popupAddress"></span></p>
+                                <p><strong>Primary Number:</strong> <span id="popupPrimary"></span></p>
+                                <p><strong>Emergency Number:</strong> <span id="popupEmergency"></span></p>
+                                <p><strong>Gender:</strong> <span id="popupGender"></span></p>
+                            </div>
+                   
+                            <!-- Financial Details -->
+                            <div class="popup-section">
+                                <h3>Financial Details</h3>
+                                <p><strong>Bank Name:</strong> <span id="popupBank"></span></p>
+                                <p><strong>Account Number:</strong> <span id="popupAccount"></span></p>
+                                <p><strong>IFSC Code:</strong> <span id="popupIFSC"></span></p>
+                                <p><strong>Account Name:</strong> <span id="popupAccountName"></span></p>
+                                <p><strong>Bank Address:</strong> <span id="popupBankAddress"></span></p>
+                                <p><strong>Pincode:</strong> <span id="popupPincode"></span></p>
+                            </div>
+                   
+                            <!-- Skills & Interests -->
+                            <div class="popup-section">
+                                <h3>Skills & Interests</h3>
+                                <p><strong>Skills:</strong> <span id="popupSkills"></span></p>
+                                <!-- <p><strong>Certifications:</strong> <span id="popupCertifications"></span></p> -->
+                                <p><strong>Soft Skills:</strong> <span id="popupSoftSkills"></span></p>
+                                <p><strong>Interests:</strong> <span id="popupInterests"></span></p>
+                            </div>
+                   
+                            <!-- Social Links -->
+                            <div class="popup-section">
+                                <h3>Social Links</h3>
+                                <p><strong>LinkedIn:</strong> <a id="popupLinkedIn" href="#" target="_blank">Visit Profile</a></p>
+                                <p><strong>GitHub:</strong> <a id="popupGitHub" href="#" target="_blank">View Repos</a></p>
+                                <p><strong>Twitter:</strong> <a id="popupTwitter" href="#" target="_blank">Follow</a></p>
+                            </div>
+                        </div>
+                    </div>
+                   
+       
+    </div>
+    <script src="../static/admin_employee.js"></script>
+
+</body>
+</html>

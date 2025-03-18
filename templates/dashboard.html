@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../static/dashboard.css">  
+
+    
+</head>
+<body>
+    <div class="sidebar">
+        <h1>ARITHWISE</h1>
+    <a href="{{ url_for('dashboard') }}" class="active">My Profile</a>    
+    <a href="{{ url_for('employee') }}">Employee Detail</a>
+    <a href="notice.html">Notifications</a>
+    <a href="{{ url_for('apply_leave') }}">Apply for Leave</a>
+    <a href="{{ url_for('attendance') }}">Attendance</a>
+    {% if user_info.user_type == "employee" or user_info.user_type == "consultant" %}
+        <a href="{{ url_for('salary_slip') }}">Salary Slip</a>
+    {% elif user_info.user_type == "intern" %}
+        <a href="{{ url_for('stipend') }}">Stipend</a>
+    {% endif %}
+
+
+    <!-- <a href="{{ url_for('salary_slip') }}">Salary Slip</a> -->
+    <a href="{{ url_for('invoice') }}">Invoice</a>
+    <a href="{{ url_for('expense') }}">Expense</a>
+    <a href="{{ url_for('announcement') }}" >Announcements</a>
+    <a href="#">Calendar</a>
+    <a href="{{ url_for('contact') }}" >Contact</a>
+        <!-- <button class="logout-btn" onclick="logoutUser()">Logout</button> -->
+        <button class="logout-btn" type="button" onclick="logoutUser()">Logout</button>
+
+        <!-- <button class="logout-btn">Logout</button> -->
+    </div>
+    
+    <div class="content">
+        <div class="profile-container">
+            <div class="profile-picture">
+                <img src="{{ url_for('get_profile_picture', user_id=current_user.get_id()) }}" alt="Profile Picture">
+            </div>
+            <div class="profile-info">
+                <h2>{{ current_user.first_name }} {{ current_user.last_name }}</h2>
+                <h3>Data Engineer</h3>
+            </div>
+            <div class="images-container"> 
+                <img src="static\images\image1.png" alt="">
+                <h3 class="welcome-text">Welcome to your ARITHWISE!</h3>
+                <img src="static\images\image2.png" alt="">
+
+            </div>
+        </div> 
+    
+        <div class="card-container">
+            <a href="{{ url_for('employee') }}" class="card">
+                <img src="static\images\empoloyee.png" alt="">
+                <h3>Employee Detail</h3>
+                <p>Manage your employee data here.</p>
+            </a>
+            <a href="{{ url_for('apply_leave') }}" class="card">
+                <img src="static\images\applyforleave.png" alt="">
+                <h3>Apply for Leave</h3>
+                <p>Submit leave requests easily.</p>
+            </a>
+            <a href="{{ url_for('invoice') }}"  class="card">
+                <img src="static\images\invoice.png" alt="">
+                <h3>Invoice</h3>
+                <p>Access your invoices here.</p>
+            </a>
+            <a href="salary.html" class="card">
+                <img src="static\images\Ticket.png" alt="">
+                <h3>Salary Slip</h3>
+                <p>Download your salary slips.</p>
+            </a>
+            <a href="{{ url_for('attendance') }}" class="card">
+                <img src="static\images\Attendance.png" alt="">
+                <h3>Attendance</h3>
+                <p>Track your attendance records.</p>
+            </a>
+            <a href="notice.html" class="card">
+                <img src="static\images\notification.png" alt="">
+                <h3>Notification</h3>
+                <p>Check all important notification.</p>
+            </a>
+
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+
+</body>
+</html>

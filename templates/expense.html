@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Expenses</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+       
+        body {
+            font-family: Calibri, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            min-height: 100vh;
+        }
+       
+        .sidebar {
+            width: 240px;
+            height: 100vh;
+            background-color: #2a2a72;
+            color: #fff;
+            position: fixed;
+            padding: 20px;
+        }
+       
+        .sidebar h1 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+       
+        .sidebar h1 i {
+            font-size: 24px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+       
+        .sidebar a {
+            text-decoration: none;
+            color: #fff;
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+       
+        .sidebar a.active {
+            background-color: #fff;
+            color: #2a2a72;
+        }
+       
+        .sidebar a:hover {
+            background-color: #4141a0;
+        }
+       
+        .logout-btn {
+            background-color: #ff5757;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+        }
+       
+        .logout-btn:hover {
+            background-color: #e04444;
+        }
+       
+        .container {
+            flex-grow: 1;
+            margin-left: 240px; /* Ensure it doesn’t overlap the sidebar */
+            padding: 30px;
+            max-width: calc(100% - 240px); /* Adjust width based on sidebar size */
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+       
+        h2 {
+            color: #2a2a72;
+            text-align: center;
+        }
+       
+        .form-group {
+            margin-bottom: 15px;
+        }
+       
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #2a2a72;
+        }
+       
+        input, select, button, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+       
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+       
+        button {
+            background-color: #2a2a72;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+       
+        button:hover {
+            background-color: #4141a0;
+        }
+       
+        .table-container {
+            max-height: 500px;
+            overflow-y: auto;
+            margin-top: 20px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+       
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+       
+        th, td {
+            text-align: center;
+            padding: 12px;
+            border: 1px solid #ddd;
+            word-wrap: break-word;
+            max-width: 400px;
+            white-space: normal;
+        }
+       
+        th {
+            background: #2a2a72;
+            color: white;
+            position: sticky;
+            top: 0;
+        }
+       
+        tbody {
+            background-color: #f9f9f9;
+        }
+       
+        tr:hover td {
+            background-color: #f1f1f1;
+        }
+               
+        .image-preview {
+            max-width: 100px;
+            cursor: pointer;
+        }
+ 
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+ 
+        .image-modal img {
+            max-width: 90%;
+            max-height: 80%;
+        }
+ 
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+        }
+   
+     </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h1>ARITHWISE</h1>
+
+        <a href="{{ url_for('dashboard') }}" >My Profile</a>    
+        <a href="{{ url_for('employee') }}">Employee Detail</a>
+        <a href="notice.html">Notifications</a>
+        <a href="{{ url_for('apply_leave') }}">Apply for Leave</a>
+        <a href="{{ url_for('attendance') }}">Attendance</a>
+        <!-- <a href="{{ url_for('salary_slip') }}" >Salary Slip</a> -->
+        {% if user_info.type == "employee" or user_info.type == "consultant" %}
+        <a href="{{ url_for('salary_slip') }}">Salary Slip</a>
+    {% elif user_info.type == "intern" %}
+        <a href="{{ url_for('stipend') }}">Stipend</a>
+    {% endif %}
+        <a href="{{ url_for('invoice') }}" >Invoice</a>
+        <a href="{{ url_for('expense') }}"class="active">Expense</a>
+        <a href="{{ url_for('announcement') }}" >Announcements</a>
+        <a href="#">Calendar</a>
+        <a href="{{ url_for('contact') }}" >Contact</a>
+        <!-- <button class="logout-btn">Logout</button> -->
+        <button class="logout-btn" type="button" onclick="logoutUser()">Logout</button>
+
+    </div>
+     
+      <div class="container">
+        <h2>Employee Expense  </h2>
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select id="category">
+                <option value="travel">travel</option>
+                <option value="medical">medical</option>
+                <option value="food">food</option>
+                <option value="general">general</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" placeholder="Enter description"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" placeholder="Enter amount">
+        </div>
+        <div class="form-group">
+            <label for="proof">Proof of Expense</label>
+            <input type="file" id="proof">
+        </div>
+        <button onclick="addExpense()">Add Expense</button>
+       
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Proof</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="expenseTable">
+                </tbody>
+            </table>
+        </div>
+        <div class="image-modal" id="imageModal">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <img id="modalImage" src="" alt="Proof Image">
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='expense.js') }}"></script> 
+
+</body>
+</html>
+ 

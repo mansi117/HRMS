@@ -1,0 +1,66 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden; /* Prevents scrollbars if the video fills the screen */
+}
+
+video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the video fills the screen without distortion */
+    z-index: -1; /* Places video behind the content */
+}
+
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    font-family: Calibri, sans-serif;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    padding: 100000px;
+    border-radius: 0px; /* Optional: rounded corners */
+    width: 100%;
+    max-width: 600px; /* Optional: limit the width of the content */
+}
+
+h1, h2 {
+    margin: 0.5em 0;
+}
+
+.highlight {
+    color: #ffd700; /* Highlight color */
+    font-weight: bold;
+}
+
+.button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    color: white;
+    text-decoration: none;
+    background-color: #000000;
+    border-radius: 5px;
+}
+
+.button:hover {
+    background-color: #000000;
+}
+
+/* Logo styles */
+.logo {
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    width: 210px; /* Adjust the size of the logo */
+    height: auto;
+    z-index: 2; /* Ensures the logo is above the video */
+}

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Details</title>
+    <style>
+ /* Global Styles */
+ * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+ 
+body {
+    font-family: Calibri, sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+}
+ 
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background-color: #2a2a72;
+    color: #fff;
+    position: fixed;
+    padding: 20px;
+   
+}
+ 
+.sidebar h1 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+ 
+.sidebar h1 i {
+    font-size: 24px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+ 
+.sidebar a {
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+ 
+.sidebar a.active {
+    background-color: #fff;
+    color: #2a2a72;
+}
+ 
+.sidebar a:hover {
+    background-color: #4141a0;
+}
+ 
+.logout-btn {
+    background-color: #ff5757;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+ 
+.logout-btn:hover {
+    background-color: #e04444;
+}
+/* Content Section */
+.content {
+    margin-left: 240px;
+    padding: 40px;
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+ 
+/* Card Styles */
+.card {
+    width: 100%;
+    max-width: 400px;
+    background-color: #e8ebf7;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: auto;
+    position: relative;
+}
+ 
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+ 
+.card h3 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #2a2a72;
+    text-align: center;
+    font-weight: bold;
+    position: relative;
+}
+ 
+.card h3:after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background-color: #2a2a72;
+    margin: 10px auto 0;
+}
+ 
+.card p {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #555;
+    word-wrap: break-word; /* Prevent overflow for long text */
+    word-break: break-word; /* Ensure words break at proper points */
+}
+ 
+.card p strong {
+    color: #333;
+}
+ 
+.card button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+ 
+.card button:hover {
+    background-color: #45a049;
+}
+ 
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+ 
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 30px;
+    border: 1px solid #888;
+    width: 50%;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+ 
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+ 
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+}
+ 
+/* Form Styles */
+.modal form {
+    display: flex;
+    flex-direction: column;
+}
+ 
+.modal form input,
+.modal form select {
+    margin: 15px 0;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+    width: 100%;
+}
+ 
+.modal form button {
+    background-color: #4c5caf;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 15px;
+    font-size: 18px;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+ 
+.modal form button:hover {
+    background-color: #45a049;
+}
+ 
+/* Specific fix for company and social cards */
+#companyModal .modal-content,
+#socialModal .modal-content {
+    width: 40%;
+    max-width: 500px;
+}
+/* Financial Details Section */
+ 
+
+
+   </style>
+</head>
+ 
+    <div class="sidebar">
+        <h1>ARITHWISE</h1>
+        
+        <a href="{{ url_for('dashboard') }}" >My Profile</a>    
+        <a href="{{ url_for('employee') }}"class="active">Employee Detail</a>
+        <a href="notice.html">Notifications</a>
+        <a href="{{ url_for('apply_leave') }}">Apply for Leave</a>
+        <a href="{{ url_for('attendance') }}">Attendance</a>
+        <!-- <a href="{{ url_for('salary_slip') }}" >Salary Slip</a> -->
+        
+        {% if user_info.user_type == "employee" or user_info.user_type == "consultant" %}
+        <a href="{{ url_for('salary_slip') }}">Salary Slip</a>
+    {% elif user_info.user_type == "intern" %}
+        <a href="{{ url_for('stipend') }}">Stipend</a>
+    {% endif %}
+        <a href="{{ url_for('invoice') }}" >Invoice</a>
+        <a href="{{ url_for('expense') }}">Expense</a>
+        <a href="{{ url_for('announcement') }}" >Announcements</a>
+        <a href="#">Calendar</a>
+        <a href="{{ url_for('contact') }}" >Contact</a>
+        <!-- <button class="logout-btn">Logout</button> -->
+        <button class="logout-btn" type="button" onclick="logoutUser()">Logout</button>
+
+        
+    </div>
+    <div class="content">
+        <!-- Personal Details -->
+        <div class="card">
+            <h3>Personal Details</h3>
+            <div id=" PersonalDetails">
+            <p><strong>Profile Name:</strong> <span id="displayName">{{ profile_name }}</span></p>
+            <p><strong>EMP_ID:</strong> <span id="displayEmpId">{{ emp_id }}</span></p>
+            <p><strong>DOB:</strong> <span id="displayDOB">{{ date_of_birth }}</span></p>
+            <p><strong>Email:</strong> <span id="displayEmail">{{ email }}</span></p>
+            <p><strong>Address:</strong> <span id="displayAddress">abc,def</span></p>
+            <p><strong>Primary Number:</strong> <span id="displayPrimary">3333333333</span></p>
+            <p><strong>Emergency Number:</strong> <span id="displayEmergency">4444444444</span></p>
+            <p><strong>Gender:</strong> <span id="displayGender"></span></p>
+            <button class="edit-button" onclick="openModal('personalModal')">Edit</button>
+
+        </div>
+    </div>
+        <!-- Financial Details -->
+        <div class="card">
+            <h3>Financial Details</h3>
+            <div id="financialDetails">
+                <p><strong>Bank Name:</strong> <span id="displayBankName">HDFC Bank</span></p>
+                <p><strong>Account Number:</strong> <span id="displayAccountNumber">123456789012</span></p>
+                <p><strong>IFSC Code:</strong> <span id="displayIFSC">HDFC0001234</span></p>
+                <p><strong>Account Name:</strong> <span id="displayAccountName">Aditi Pimpalkar</span></p>
+                <p><strong>Bank Address:</strong> <span id="displayBankAddress">MG Road, Pune</span></p>
+                <p><strong>Pincode:</strong> <span id="displayPincode">411001</span></p>       
+                <button class="edit-button" onclick="openModal('financialModal')">Edit</button>
+
+            </div>
+    </div>
+       
+       <!--skills and interest-->
+       <div class="card">
+        <h3>Skills and Interests</h3>
+        <p><strong>Skills:</strong> <span id="displaySkills">HTML, CSS, JavaScript, React</span></p>
+        <p><strong>Soft Skills:</strong> <span id="displaySoftSkills">Teamwork, Problem-Solving, Communication</span></p>
+        <p><strong>Interests:</strong> <span id="displayInterests">UI/UX Design, Open-Source Contributions</span></p>
+        <button class="edit-button" onclick="openModal('skillsInterestsModal')">Edit</button>
+
+    </div>
+        
+   
+        <!-- Social Links -->
+        <div class="card">
+            <h3>Social Links</h3>
+            <div id="socialDetails">
+                <p><strong>LinkedIn:</strong> <span id="displayLinkedIn">https://linkedin.com/in/aditi</span></p>
+                <p><strong>GitHub:</strong> <span id="displayGitHub">https://github.com/aditi</span></p>
+                <p><strong>Twitter:</strong> <span id="displayTwitter">https://twitter.com/aditi</span></p>
+                <!-- <p id="socialLinks"></p> -->
+            </div>
+            <button class = "editbutton" onclick="openModal('socialModal')">Edit</button>
+
+        </div>
+
+    <div id="personalModal" class="modal">
+        <div class="modal-content">
+            <h3>Edit Personal Details</h3>
+            <span class="close" onclick="closeModal('personalModal')">&times;</span>
+            <form id="personalForm">
+                <label>Email:
+                    <input type="email" id="email"   placeholder="Enter your email" required>
+                </label>
+                <label>Address:
+                    <input type="text" id="address"   placeholder="Enter your address" required>
+                </label>
+                <label>Primary Number:
+                    <input type="tel" id="primary"  required pattern="[0-9]{10}" placeholder="Enter 10-digit number">
+                </label>
+                <label>Emergency Number:
+                    <input type="tel" id="emergency" required pattern="[0-9]{10}" placeholder="Enter 10-digit number">
+                </label>
+                <label>Gender:
+                    <select id="gender" required>
+                        <option value="" disabled selected>Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </label>
+                <div class="modal-buttons">
+                    <button type="button" class="close-btn" onclick="closeModal('personalModal')">Cancel</button>
+                    <button type="submit" class="save-btn" id="savePersonalButton" disabled>Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+   
+    <!-- Financial Modal -->
+    <div id="financialModal" class="modal">
+        <div class="modal-content">
+            <h3>Edit Financial Details</h3>
+            <span class="close" onclick="closeModal('financialModal')">&times;</span>
+            <form id="financialForm">
+                <label>Bank Name:
+                    <input type="text" id="editBankName" placeholder="Enter your bank name" required>
+                </label>
+                <label>Account Number:
+                    <input type="text" id="editAccountNumber" placeholder="Enter your account number"
+                        pattern="\d{9,18}" title="Account number should be between 9 to 18 digits" required>
+                </label>
+                <label>
+                    IFSC Code:
+                    <input
+                        type="text"
+                        id="editIFSC"
+                        placeholder="Enter IFSC code"
+                        pattern="[A-Z]{4}0[A-Z0-9]{6}"
+                        title="Indian IFSC code must be 4 uppercase letters followed by 7 digits (e.g., SBIN0001234)"
+                        required
+                    >
+                </label>
+                <label>Account Name:
+                    <input type="text" id="editAccountName" placeholder="Enter account holder's name"
+                        pattern="[A-Za-z\s]+" title="Account name should only contain letters and spaces" required>
+                </label>
+                <label>Bank Address:
+                    <input type="text" id="editBankAddress" placeholder="Enter bank's address" required>
+                </label>
+                <label>Pincode:
+                    <input type="text" id="editPincode" placeholder="Enter your pincode"
+                        pattern="\d{6}" title="Pincode should be 6 digits" required>
+                </label>
+                <div class="modal-buttons">
+                    <button type="button" class="close-btn" onclick="closeModal('financialModal')">Cancel</button>
+                    <button type="submit" class="save-btn" id="saveFinancialButton" disabled>Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="skillsInterestsModal" class="modal">
+        <div class="modal-content">
+            <h3>Edit Skills and Interests</h3>
+            <span class="close" onclick="closeModal('skillsInterestsModal')">&times;</span>
+            <form id="skillsInterestsForm">
+                <label>Skills:
+                    <input type="text" id="editSkills" placeholder="Enter your skills (comma-separated)" required>
+                </label>
+                <label>Soft Skills:
+                    <input type="text" id="editSoftSkills" placeholder="Enter soft skills (comma-separated)" required>
+                </label>
+                <label>Interests:
+                    <input type="text" id="editInterests" placeholder="Enter your interests (comma-separated)" required>
+                </label>
+                <div class="modal-buttons">
+                    <button type="button" class="close-btn" onclick="closeModal('skillsInterestsModal')">Cancel</button>
+                    <button type="submit" class="save-btn" id="saveSkillsInterestsButton" disabled>Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Social Links Modal -->
+    <div id="socialModal" class="modal">
+    <div class="modal-content">
+        <h3>Edit Social Links</h3>
+        <span class="close" onclick="closeModal('socialModal')">&times;</span>
+        <form id="socialForm">
+            <label>LinkedIn:
+                <input type="url" id="editLinkedIn" placeholder="Enter LinkedIn profile URL" required>
+            </label>
+            <label>GitHub:
+                <input type="url" id="editGitHub" placeholder="Enter GitHub profile URL" required>
+            </label>
+            <label>Twitter:
+                <input type="url" id="editTwitter" placeholder="Enter Twitter profile URL" required>
+            </label>
+            <div class="modal-buttons">
+                <button type="button" class="close-btn" onclick="closeModal('socialModal')">Cancel</button>
+                <button type="submit" class="save-btn" id="saveSocialButton">Save</button>
+            </div>
+            </form>
+        </div>
+    </div>
+    </div>
+   
+    <script src="{{ url_for('static', filename='employee.js') }}"></script>
+  
+ 
+</body>
+</html> 

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>attendence</title>
+</head>
+<body>
+    <link rel="stylesheet" href="../static/admin_attendance.css">  
+
+     
+   
+ 
+        <div class="sidebar">
+            <h1>ARITHWISE</h1>
+            <a href="{{ url_for('admin_dashboard') }}">Admin</a>
+            <a href="{{ url_for('admin_employee') }}" >Employee Details</a>
+            <a href="notice.html">Notification</a>
+            <a href="{{ url_for('admin_leave') }}">Leave</a>
+            <a href="{{ url_for('admin_attendance') }}" class="active">Attendance</a>
+            <a href="{{ url_for('admin_announcement') }}">Announcements</a>
+            <a href="{{ url_for('admin_contact') }}">Contact</a>
+            <button class="logout-btn">Logout</button>
+        </div>
+         
+   
+   
+    <div class="content">
+        <div class="header">
+            <h1>Admin Attendance Dashboard</h1>
+            <span>Logged in as: <b>ADMIN</b></span>
+        </div>
+   
+        <div class="filter-checkin-container">
+            <div class="filter">
+                <h2>Filter Records</h2>
+                <label>From: <input type="date" id="fromDate"></label>
+                <label>To: <input type="date" id="toDate"></label>
+                <button onclick="filterRecords()">Apply</button>
+            </div>
+            <div class="checkin-section">
+                <h3>Check-in & Check-out</h3>
+               
+               
+                <table>
+                    <tr><th>Date</th><th>Employee</th><th>Check-in</th><th>Check-out</th><th>Total Hours</th></tr>
+                </table>
+            </div>
+        </div>
+   
+        <div class="attendance-section">
+            <h3>Attendance Records</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Name</th>
+                            <th>Employee</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2025-02-25</td>
+                            <td>Yes</td>
+                            <td>
+                                <select>
+                                    <option value="full_day">Full Day</option>
+                                    <option value="half_day">Half Day</option>
+                                    <option value="work_from_home">Work from Home</option>
+                                </select>
+                            </td>
+                            <td>Present</td>
+                            <td>
+                                <button class="approve-btn">Approve</button>
+                                <button class="reject-btn">Reject</button>
+                            </td>
+                        </tr>
+                        <!-- More rows can be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+       
+            <div class="attendance-buttons">
+                <button onclick="sendAttendance()">Send</button>
+                <button onclick="exportAllData()">Export All Employees</button>
+            </div>
+        </div>
+       
+        <!-- <div class="meal-section">
+            <h3>Meal Count</h3>
+            <p id="mealCount">Meals Taken: 0 | Not Taken: 0</p>
+            <button onclick="sendMealCountEmail()">Send to Mukesh</button>
+        </div> -->
+        <div class="meal-section">
+            <h3>Meal Count</h3>
+            <p id="mealCount">Meals Taken: <span id="yesMealCount">0</span> | Not Taken: <span id="noMealCount">0</span></p>
+            <button onclick="sendMealCountEmail()">Send to Mukesh</button>
+        </div>
+        
+         <!-- Section to show specific employee data -->
+    <div class="specific-employee-section">
+        <h3>View Specific Employee</h3>
+        <label>Select Employee:
+            <select id="specificEmployeeSelect" onchange="showSpecificEmployee()">
+                <option value="all">All</option>
+                <option value="Ketki Jain">Ketki Jain</option>
+                <option value="Ganesh Kalyankar">Ganesh Kalyankar</option>
+                <option value="Mansi Patel">Mansi Patel</option>
+            </select>
+        </label>
+       
+       
+ 
+        <table id="specificEmployeeTable">
+            <tr><th>Date</th><th>Check-in</th><th>Check-out</th><th>Total Hours</th><th>Meal</th><th>Status</th></tr>
+        </table>
+ 
+        <div class="specificEmployee-buttons">
+       
+            <button onclick="exportSpecificEmployeeData()">Export Specific Employee</button>
+        </div>
+       
+    </div>
+ 
+    </div>
+    <script src="../static/admin_attendance.js"></script>
+
+   
+</body>
+</html>  
+ 

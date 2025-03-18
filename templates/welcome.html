@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arithwise</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='welcome.css') }}">
+</head>
+
+<body>
+    <video autoplay muted loop>
+        <source src="{{ url_for('static', filename='videos/video.mp4') }}" type="video/mp4" class="video">
+        Your browser does not support the video tag.
+    </video>
+
+    <img src="{{ url_for('static', filename='images/arithwiselogo 1.webp') }}" alt="Arithwise Logo" class="logo">
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Welcome to</h1>
+        <h1>ARITHWISE</h1>
+        <h2>'The Solution Engine'</h2>
+        <p>We deliver solutions with <span class="highlight">Maximum Technology</span> & <span class="highlight">Minimum Cost</span></p>
+        <!-- <a href="signin.html" class="button">Get Started</a> -->
+   
+        <a href="{{ url_for('signin') }}" class="button">Get Started</a>
+        
+    </div>
+
+    
+</body>
+</html>

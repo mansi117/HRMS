@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <nav class="navbar">
+        <ul>
+            <li><a href="{{ url_for('admin_dashboard') }}">Admin</a></li>
+            <li><a href="{{ url_for('admin_employee') }}">Employee Details</a></li>
+            <li><a href="notice.html">Notification</a></li>
+            <li><a href="{{ url_for('admin_announcement') }}">Announcements</a></li>
+            <li><a href="{{ url_for('admin_contact') }}">Contact</a></li>
+            <li><button class="logout-btn" onclick="logout()">Logout</button></li>
+        </ul>
+    </nav>
+
+    <script>
+        function logout() {
+            window.location.href = "{{ url_for('logout') }}";
+        }
+    </script>
+
+</body>
+</html>

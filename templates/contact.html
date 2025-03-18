@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact</title>
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='invoice.css') }}?v=1"> -->
+  <link rel="stylesheet" href="../static/contact.css">  
+</head>
+<body>
+  <div class="sidebar">
+    <h1>ARITHWISE</h1>
+    <a href="{{ url_for('dashboard') }}" >My Profile</a>    
+    <a href="{{ url_for('employee') }}">Employee Detail</a>
+    <a href="notice.html">Notifications</a>
+    <a href="{{ url_for('apply_leave') }}">Apply for Leave</a>
+    <a href="{{ url_for('attendance') }}">Attendance</a>
+    <!-- <a href="{{ url_for('salary_slip') }}">Salary Slip</a> -->
+    {% if user_info.type == "employee" or user_info.type == "consultant" %}
+    <a href="{{ url_for('salary_slip') }}">Salary Slip</a>
+{% elif user_info.type == "intern" %}
+    <a href="{{ url_for('stipend') }}">Stipend</a>
+{% endif %}
+    <a href="{{ url_for('invoice') }}">Invoice</a>
+    <a href="{{ url_for('expense') }}">Expense</a>
+    <a href="{{ url_for('announcement') }}" >Announcements</a>
+    <a href="#">Calendar</a>
+    <a href="{{ url_for('contact') }}" class="active">Contact</a>
+    <button class="logout-btn" type="button" onclick="logoutUser()">Logout</button>
+
+
+  </div>
+ 
+  <div style="margin-left: 26px; padding: 20px;">
+   
+ 
+   
+<div class="table-container">
+  <h2>Our Team</h2>
+  <input type="text" id="searchBar" class="search-bar" onkeyup="searchEmployee()" placeholder="Search for employee names...">
+  <table class="team-table">
+      <thead>
+          <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Social</th>
+          </tr>
+      </thead>
+      <tbody id="teamBody">
+        <tr id="placeholderRow">
+          <td class="placeholder">Name</td>
+          <td class="placeholder">xx@arithwise.com</td>
+          <td class="placeholder">+91 XXXXX XXXXX</td>
+          <td class="placeholder"><a href="#">LinkedIn</a> | <a href="#">Twitter</a></td>
+      </tr>
+      </tbody>
+  </table>
+</div>
+    <body>
+     
+   
+      <div class="footer">
+        <div class="table-container">
+          <h2>Company Contact</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Address</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Social</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Mayfair Legends, Evershine Nagar, Malad W, Mumbai - 400064.
+                  <br>
+                  <br>
+                  Plexwork Coworking space,NB Tower, <br>
+                 1st floor above Bank of Baroda,
+                  Manish Nagar , <br> Nagpur-440015.
+                </td>
+         
+                <td>
+                  <a href="mailto:info@arithwise.com">info@arithwise.com</a><br>
+                  <a href="mailto:career@arithwise.com">career@arithwise.com</a><br>
+                 
+                </td>
+                <td>
+                  <a href="tel:+919987020905">+91 99870 20905</a><br>
+                  <a href="tel:+919987000905">+91 99870 00905</a><br>
+               
+                </td>
+                <td><a href="#">LinkedIn</a> | <a href="#">Twitter</a></td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="4">
+                  &copy; 2024 Arithwise. All rights reserved.
+                </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+ 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="{{ url_for('static', filename='contact.js') }}"></script>
+
+</body>
+</html>

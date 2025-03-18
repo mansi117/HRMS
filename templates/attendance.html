@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance & Meal Tracker</title>
+    <link rel="stylesheet" href="../static/attendance.css">  
+
+</head>
+<body>
+ 
+<div class="sidebar">
+  <h1>ARITHWISE</h1>
+  <a href="{{ url_for('dashboard') }}" >My Profile</a>    
+  <a href="{{ url_for('employee') }}">Employee Detail</a>
+  <a href="notice.html">Notifications</a>
+  <a href="{{ url_for('apply_leave') }}">Apply for Leave</a>
+  <a href="{{ url_for('attendance') }}"class="active">Attendance</a>
+  <!-- <a href="{{ url_for('salary_slip') }}" >Salary Slip</a> -->
+  {% if user_info.type == "employee" or user_info.type == "consultant" %}
+  <a href="{{ url_for('salary_slip') }}">Salary Slip</a>
+{% elif user_info.type == "intern" %}
+  <a href="{{ url_for('stipend') }}">Stipend</a>
+{% endif %}
+
+  <a href="{{ url_for('invoice') }}" >Invoice</a>
+  <a href="{{ url_for('expense') }}">Expense</a>
+  <a href="{{ url_for('announcement') }}" >Announcements</a>
+  <a href="#">Calendar</a>
+  <a href="{{ url_for('contact') }}" >Contact</a>
+  <!-- <button class="logout-btn">Logout</button> -->
+  <button class="logout-btn" type="button" onclick="logoutUser()">Logout</button>
+</div>
+ 
+<div class="content">
+    <div class="header">
+        <h1>Attendance Dashboard</h1>
+        <span>Logged in as: <b>ADITI</b></span>
+    </div>
+ 
+    <div class="filter-checkin-container">
+        <div class="filter">
+      <h3>Filter Records</h3>
+
+           
+            <label>From: <input type="date"></label>
+            <label>To: <input type="date"></label>
+            <button onclick="filterRecords()">Apply</button>
+        </div>
+        <div class="checkin-section">
+            <h3>Check-in & Check-out</h3>
+            <table>
+                <tr><th>Date</th><th>Check-in</th><th>Check-out</th><th>Total Hours</th></tr>
+             
+            </table>
+            
+
+
+        </div>
+    </div>
+<!--  
+    <div class="attendance-section">
+        <h3>Attendance Records</h3>
+        <table>
+            <tr><th>Date</th><th>Meal</th><th>Type</th><th>Status</th></tr>
+         
+        </table>
+        <div class="attendance-buttons">
+            <button onclick="sendAttendance()">Send</button>
+            <button onclick="weeklyReport()">Weekly Report</button> -->
+            <!-- <button id="send-btn">Send</button>
+            <button id="weekly-report-btn">Weekly Report</button>
+
+          </div>
+         
+     </div> --> 
+     <div class="attendance-section">
+        <h3>Attendance Records</h3>
+        <table id="attendanceTable">  <!-- ✅ ID added -->
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Meal</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Attendance records dynamically yahan add honge -->
+            </tbody>
+        </table>
+        <div class="attendance-buttons">
+            <button id="send-btn">Send</button>
+            <button id="weekly-report-btn">Weekly Report</button>
+        </div>
+    </div>
+    
+    <div class="summary-meal-container">
+        <div class="summary-container">
+            <div class="summary-box">Total Attendance: </div>
+            <div class="summary-box">Total Leave: </div>
+            <div class="summary-box">Half Days: </div>
+            <div class="summary-box">Full Days: </div>
+        </div>
+        <div class="meal-section">
+            <h3>Meal Section</h3>
+            <span id="selected-meal"></span> 
+
+            <button id="meal-yes">Yes</button>
+            <button id="meal-no">No</button>
+         </div>
+    </div>
+</div>
+ 
+<script src="{{ url_for('static', filename='attendance.js') }}"></script>
+
+
+ 
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Announcements</title>
+  <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+ 
+    body {
+        font-family: Calibri, sans-serif;
+        background-color: #f4f4f9;
+        display: flex;
+    }
+ 
+    .sidebar {
+        width: 240px;
+        height: 100vh;
+        background-color: #2a2a72;
+        color: #fff;
+        position: fixed;
+        top: 0;
+        left: 0;
+        padding: 20px;
+        overflow-y: auto;
+    }
+ 
+    .sidebar h1 {
+        font-size: 22px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+    }
+ 
+    .sidebar h1 i {
+        font-size: 24px;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+ 
+    .notification-icon {
+        font-size: 24px;
+        cursor: pointer;
+        margin-left: auto;
+        color: #fff;
+        position: relative;
+    }
+ 
+    .notification-icon::after {
+        content: attr(data-count);
+        position: absolute;
+        top: -5px;
+        right: -10px;
+        background-color: red;
+        color: #fff;
+        font-size: 0.7em;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+ 
+    .sidebar a {
+        text-decoration: none;
+        color: #fff;
+        display: block;
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 5px;
+    }
+ 
+    .sidebar a.active {
+        background-color: #fff;
+        color: #2a2a72;
+    }
+ 
+    .sidebar a:hover {
+        background-color: #4141a0;
+    }
+ 
+    .logout-btn {
+        background-color: #ff5757;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 20px;
+    }
+ 
+    .logout-btn:hover {
+        background-color: #e04444;
+    }
+ 
+    .main-content {
+        margin-left: 240px; /* Ensures content doesn't overlap the sidebar */
+        padding: 40px;
+        width: calc(100% - 240px); /* Adjusts content width */
+    }
+ 
+    .feedback-wrapper {
+        max-width: 100%; /* Takes up full available space */
+        margin: 40px auto;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+    }
+ 
+    .feedback-wrapper h2 {
+        font-size: 28px;
+        color: #2a2a72;
+        margin-bottom: 20px;
+    }
+ 
+    .feedback-wrapper p {
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 30px;
+    }
+ 
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 30px;
+    }
+ 
+    th, td {
+        padding: 12px 15px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+ 
+    th {
+        background-color: #2a2a72;
+        color: #ffffff;
+    }
+ 
+    tr:nth-child(even) {
+        background-color: #f1f5f9;
+    }
+ 
+    td a {
+        color: #1c68e2;
+        text-decoration: none;
+    }
+ 
+    td a:hover {
+        text-decoration: underline;
+    }
+ 
+    .btn-submit {
+        display: inline-block;
+        background-color: #2a2a72;
+        color: #ffffff;
+        padding: 12px 25px;
+        font-size: 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+ 
+    .btn-submit:hover {
+        background-color: #4141a0;
+    }
+     
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h1>ARITHWISE</h1>
+    <a href="{{ url_for('dashboard') }}" >My Profile</a>    
+    <a href="{{ url_for('employee') }}">Employee Detail</a>
+    <a href="notice.html">Notifications</a>
+    <a href="{{ url_for('apply_leave') }}">Apply for Leave</a>
+    <a href="{{ url_for('attendance') }}">Attendance</a>
+    <!-- <a href="{{ url_for('salary_slip') }}">Salary Slip</a> -->
+    {% if user_info.type == "employee" or user_info.type == "consultant" %}
+    <a href="{{ url_for('salary_slip') }}">Salary Slip</a>
+{% elif user_info.type == "intern" %}
+    <a href="{{ url_for('stipend') }}">Stipend</a>
+{% endif %}
+    <a href="{{ url_for('invoice') }}">Invoice</a>
+    <a href="{{ url_for('expense') }}">Expense</a>
+    <a href="{{ url_for('announcement') }}" class="active">Announcements</a>
+    <a href="#">Calendar</a>
+    <a href="{{ url_for('contact') }}" >Contact</a>
+    <button class="logout-btn">Logout</button>
+  </div>
+ 
+  <div class="main-content">
+    <div class="feedback-wrapper">
+      <h2>Announcements Sections</h2>
+ 
+      <table>
+        <thead>
+          <tr>
+            <th>Sr. No</th>
+            <th>Subject</th>
+            <th>Description</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+           
+           
+          <tr>
+            <td>1</td>
+            <td>Annual Feedback</td>
+            <td>Feedback on experience in Arithwise.</td>
+            <td><a href="https://forms.google.com/section-a-feedback" target="_blank">Form</a></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Meal feedback</td>
+            <td>Suggestions for Meal</td>
+            <td><a href="https://forms.google.com/table2-feedback" target="_blank">Form</a></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>project feedback</td>
+            <td>Review feedback</td>
+            <td><a href="https://forms.google.com/section-b-feedback" target="_blank">Form</a></td>
+          </tr>
+        </tbody>
+      </table>
+ 
+       
+    </div>
+  </div>
+ 
+ 
+</body>
+</html>
+ 

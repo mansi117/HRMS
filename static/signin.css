@@ -1,0 +1,302 @@
+ /* General Styles */
+ body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Calibri', sans-serif;
+}
+ 
+/* Main Container */
+.container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100vh;
+}
+ 
+/* Left Section: Welcome Section */
+.welcome-section {
+    width: 50%;
+    background-color: #01008a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+ 
+.welcome-title {
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+    text-align: center;
+}
+ 
+.solution-engine {
+    font-weight: 900;
+    font-size: 4rem;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 40px;
+}
+ 
+.solutions-text {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #ffffff;
+    text-align: center;
+    max-width: 563px;
+    line-height: 1.3;
+    margin-bottom: 40px;
+}
+ 
+/* Learn More Button */
+.learn-more-btn {
+    width: 150px;
+    height: 50px;
+    background-color: #ffc20e;
+    border-radius: 11px;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+ 
+.learn-more-btn:hover {
+    background-color: #e6aa00;
+}
+ 
+/* Right Section: Login Section */
+.login-section {
+    width: 50%;
+    min-width: 320px;
+    max-width: 613px;
+    margin: 0 auto;
+    padding: 20px;
+}
+ 
+/* Login Title */
+.login-title {
+    color: #253d90;
+    font-size: 56px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-align: center;
+}
+ 
+/* Login Subtitle */
+.login-subtitle {
+    color: #969696;
+    font-size: 30px;
+    font-weight: 400;
+    margin-bottom: 30px;
+    text-align: center;
+}
+ 
+/* Input Labels */
+.form-label {
+    color: #253d90;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: block;
+}
+ 
+/* Input Fields */
+.form-input {
+    width: 100%;
+    height: 61px;
+    border: 2px solid #cbb4b4;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    padding: 0 15px;
+    font-size: 16px;
+}
+ 
+/* Remember Me and Forgot Password Section */
+.remember-reset {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+ 
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #8f8f8f;
+    font-size: 20px;
+    font-weight: 400;
+}
+ 
+.reset-password {
+    color: #253d90;
+    font-size: 20px;
+    font-weight: 700;
+    text-decoration: none;
+}
+ 
+.reset-password:hover {
+    text-decoration: underline;
+}
+ 
+/* Role Selection Buttons (Admin, SuperAdmin, Employee) */
+.login-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+ 
+.login-btn {
+    width: 32%;
+    height: 50px;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+ 
+/* Admin Button */
+.admin-btn {
+    background-color: #ff6b6b;
+}
+ 
+.admin-btn:hover {
+    background-color: #d84a4a;
+}
+ 
+/* SuperAdmin Button */
+.superadmin-btn {
+    background-color: #f4a261;
+}
+ 
+.superadmin-btn:hover {
+    background-color: #d98b51;
+}
+ 
+/* Employee Button */
+.employee-btn {
+    background-color: #2a9d8f;
+}
+ 
+.employee-btn:hover {
+    background-color: #21867a;
+}
+ 
+/* Sign In Button */
+.sign-in-btn {
+    width: 100%;
+    height: 61px;
+    background-color: #253d90;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 20px;
+    font-weight: 400;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+}
+ 
+.sign-in-btn:hover {
+    background-color: #1a2c6e;
+}
+ 
+/* Sign-Up Section */
+.signup-text {
+    color: #8f8f8f;
+    font-size: 20px;
+    font-weight: 400;
+    text-align: center;
+}
+ 
+.signup-text a {
+    color: inherit;
+    text-decoration: none;
+}
+ 
+.signup-text a:hover {
+    text-decoration: underline;
+}
+ 
+/* Checkbox Customization */
+.checkbox-custom {
+    width: 30px;
+    height: 26px;
+    border: 2px solid #cbb4b4;
+    border-radius: 6px;
+    background: white;
+}
+ 
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        height: auto;
+    }
+ 
+    .welcome-section {
+        width: 100%;
+        padding: 40px 20px;
+    }
+ 
+    .welcome-title {
+        font-size: 2rem;
+    }
+ 
+    .solution-engine {
+        font-size: 3rem;
+    }
+ 
+    .solutions-text {
+        font-size: 1.2rem;
+    }
+ 
+    .learn-more-btn {
+        width: 200px;
+        height: 60px;
+        font-size: 1.2rem;
+    }
+ 
+    .login-section {
+        width: 100%;
+        padding: 40px 20px;
+    }
+ 
+    .login-title {
+        font-size: 40px;
+    }
+ 
+    .login-subtitle {
+        font-size: 24px;
+    }
+ 
+    .form-label, .remember-me, .reset-password, .sign-in-btn, .signup-text {
+        font-size: 18px;
+    }
+ 
+    .form-input, .sign-in-btn {
+        height: 50px;
+    }
+ 
+    .login-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+ 
+    .login-btn {
+        width: 100%;
+    }
+}
+ 

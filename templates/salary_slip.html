@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+          }
+         
+          body {
+            font-family: Calibri, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+          }
+         
+          /* Sidebar */
+          .sidebar {
+            width: 240px;
+            height: 100%;
+            background-color: #2a2a72;
+            color: white;
+            padding: 20px;
+            position: fixed;
+            top: 0;
+          }
+         
+          .sidebar h1 {
+            font-size: 24px;
+            margin-bottom: 30px;
+          }
+         
+          .sidebar a {
+            display: block;
+            text-decoration: none;
+            color: white;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+          }
+         
+          .sidebar a:hover,
+          .sidebar a.active {
+            background-color: #4141a0;
+          }
+         
+          .logout-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #ff5757;
+            border: none;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+          }
+         
+          .logout-btn:hover {
+            background-color: #e04444;
+          }
+         
+/* Global Styles */
+:root {
+    --primary-color: #2a2a72;
+    --secondary-color: #4141a0;
+    --danger-color: #ff5757;
+    --danger-hover: #e04444;
+    --text-color: white;
+    --background-light: #f4f4f9;
+    --table-background: #f9f9f9;
+    --border-color: #ddd;
+}
+ 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+ 
+body {
+    font-family: Calibri, sans-serif;
+    background-color: var(--background-light);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+ 
+/* Sidebar */
+.sidebar {
+    width: 240px;
+    height: 100%;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    padding: 20px;
+    position: fixed;
+    top: 0;
+}
+ 
+.sidebar h1 {
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+ 
+.sidebar a {
+    display: block;
+    text-decoration: none;
+    color: var(--text-color);
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+ 
+.sidebar a:hover,
+.sidebar a.active {
+    background-color: var(--secondary-color);
+}
+ 
+.logout-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: var(--danger-color);
+    border: none;
+    color: var(--text-color);
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+ 
+.logout-btn:hover {
+    background-color: var(--danger-hover);
+}
+ 
+/* Content Area */
+.content {
+    margin-left: 240px;
+    padding: 20px;
+    flex-grow: 1;
+    overflow-x: auto;
+}
+ 
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+ 
+.header h1 {
+    font-size: 3em;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+}
+ 
+/* Filter Section */
+.filter-container {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+ 
+.filter-container label {
+    font-size: 1.1em;
+}
+ 
+.filter-container input {
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
+}
+ 
+.filter-btn {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease;
+    border: none;
+}
+ 
+.filter-btn:hover {
+    background-color: var(--secondary-color);
+}
+ 
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+}
+ 
+table, th, td {
+    border: 1px solid var(--border-color);
+}
+ 
+th, td {
+    padding: 12px;
+    text-align: center;
+}
+ 
+th {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+ 
+td {
+    background-color: var(--table-background);
+}
+ 
+/* Button Container */
+.action-btns {
+    display: flex;
+    justify-content: space-around;
+}
+ 
+.action-btn {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease;
+    border: none;
+}
+ 
+.action-btn:hover {
+    background-color: var(--secondary-color);
+}
+ 
+/* Pagination */
+.pagination {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+ 
+.pagination button {
+    padding: 5px 10px;
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+    background-color: var(--table-background);
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+ 
+.pagination .active {
+    font-weight: bold;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+}
+ 
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+ 
+    .content {
+        margin-left: 200px;
+    }
+ 
+    .header h1 {
+        font-size: 2.5em;
+    }
+ 
+    table {
+        font-size: 0.9em;
+    }
+ 
+    .logout-btn {
+        width: auto;
+        margin-top: 10px;
+    }
+ 
+    .action-btns {
+        flex-direction: column;
+        align-items: center;
+    }
+ 
+    .action-btn {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+ 
+    .filter-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+ 
+    </style>
+</head>
+<body>
+ 
+    <!-- Sidebar Section -->
+    <div class="sidebar">
+        <h1>ARITHWISE</h1>
+        <a href="{{ url_for('dashboard') }}" >My Profile</a>    
+        <a href="{{ url_for('employee') }}">Employee Detail</a>
+        <a href="notice.html">Notifications</a>
+        <a href="{{ url_for('apply_leave') }}">Apply for Leave</a>
+        <a href="{{ url_for('attendance') }}">Attendance</a>
+        <a href="{{ url_for('salary_slip') }}" class="active">Salary Slip</a>
+        <a href="{{ url_for('invoice') }}">Invoice</a>
+        <a href="{{ url_for('expense') }}">Expense</a>
+        <a href="{{ url_for('announcement') }}" >Announcements</a>
+        <a href="#">Calendar</a>
+        <a href="{{ url_for('contact') }}" >Contact</a>
+        <!-- <button class="logout-btn">Logout</button> -->
+        <button class="logout-btn" type="button" onclick="logoutUser()">Logout</button>
+
+    </div>
+    <div class="content">
+        <div class="header">
+            <h1>Salary Management</h1>
+        </div>
+   
+        <!-- Filter Section: From-to Date Filter -->
+        <div class="filter-container">
+            <div class="filter-item">
+                <label for="date-from">From:</label>
+                <input type="date" id="date-from" name="date-from">
+            </div>
+   
+            <div class="filter-item">
+                <label for="date-to">To:</label>
+                <input type="date" id="date-to" name="date-to">
+            </div>
+   
+            <button class="filter-btn" onclick="applyDateFilter()">Apply Filter</button>
+        </div>
+   
+        <!-- Table Section -->
+        <table id="salary-table" border="1">
+            <thead>
+                <tr>
+                    <th>Month</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                <!-- Dynamically populated -->
+            </tbody>
+        </table>
+   
+        <!-- Pagination Controls -->
+        <div class="pagination">
+            <button id="prev-page" onclick="changePage(-1)">&laquo; Prev</button>
+            <span id="page-numbers"></span>
+            <button id="next-page" onclick="changePage(1)">Next &raquo;</button>
+        </div>
+    </div>
+   
+    <script> 
+        function logoutUser() {
+        console.log("Logout button clicked!"); // Debugging
+        fetch('/logout', { method: 'POST' })
+            .then(response => {
+                if (response.ok) {
+                    sessionStorage.clear();
+                    window.location.href = "/signin"; // Redirect to sign-in page
+                } else {
+                    alert("Logout failed! Try again.");
+                }
+            })
+            .catch(error => {
+                console.error("Logout Error:", error);
+                alert("Something went wrong. Please try again.");
+            });
+    } 
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelector(".logout-btn").addEventListener("click", logoutUser);
+    });
+        const monthsData = [
+            { month: "January", date: "2025-01-01" },
+            { month: "February", date: "2025-02-01" },
+            { month: "March", date: "2025-03-01" },
+            { month: "April", date: "2025-04-01" },
+            { month: "May", date: "2025-05-01" },
+            { month: "June", date: "2025-06-01" },
+            { month: "July", date: "2025-07-01" },
+            { month: "August", date: "2025-08-01" },
+            { month: "September", date: "2025-09-01" },
+            { month: "October", date: "2025-10-01" },
+            { month: "November", date: "2025-11-01" },
+            { month: "December", date: "2025-12-01" }
+        ];
+   
+        let currentPage = 1;
+        const rowsPerPage = 5;
+   
+        function applyDateFilter() {
+            const fromDate = document.getElementById("date-from").value;
+            const toDate = document.getElementById("date-to").value;
+   
+            if (fromDate && toDate && fromDate > toDate) {
+                alert("The 'From' date cannot be after the 'To' date.");
+                return;
+            }
+   
+            filteredData = monthsData.filter(month => {
+                return (!fromDate || month.date >= fromDate) && (!toDate || month.date <= toDate);
+            });
+   
+            currentPage = 1;
+            renderTable();
+        }
+   
+        function renderTable() {
+            const tableBody = document.getElementById("table-body");
+            tableBody.innerHTML = "";
+   
+            let start = (currentPage - 1) * rowsPerPage;
+            let end = start + rowsPerPage;
+            let paginatedData = filteredData.slice(start, end);
+   
+            if (paginatedData.length === 0) {
+                tableBody.innerHTML = "<tr><td colspan='2'>No data available for the selected date range.</td></tr>";
+                return;
+            }
+   
+            paginatedData.forEach(month => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${month.month}</td>
+                    <td>
+                        <button onclick="viewDetails('${month.date}')">View</button>
+                        <button onclick="downloadPayslip('${month.date}')">Download</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+   
+            renderPagination();
+        }
+   
+        function renderPagination() {
+            const pageNumbers = document.getElementById("page-numbers");
+            pageNumbers.innerHTML = "";
+   
+            let totalPages = Math.ceil(filteredData.length / rowsPerPage);
+            for (let i = 1; i <= totalPages; i++) {
+                let btn = document.createElement("button");
+                btn.textContent = i;
+                btn.className = (i === currentPage) ? "active" : "";
+                btn.onclick = () => goToPage(i);
+                pageNumbers.appendChild(btn);
+            }
+        }
+   
+        function changePage(step) {
+            let totalPages = Math.ceil(filteredData.length / rowsPerPage);
+            currentPage = Math.max(1, Math.min(currentPage + step, totalPages));
+            renderTable();
+        }
+   
+        function goToPage(page) {
+            currentPage = page;
+            renderTable();
+        }
+   
+        function viewDetails(date) {
+            alert("View details for: " + date);
+        }
+   
+        function downloadPayslip(date) {
+            alert("Download payslip for: " + date);
+        }
+   
+        let filteredData = monthsData;
+        window.onload = function() {
+            renderTable();
+        };
+    </script>
+   
+ 
+</body>
+</html>
+ 
+ 

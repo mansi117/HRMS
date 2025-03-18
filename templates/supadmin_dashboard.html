@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../static/admin_dashboard.css">  
+
+</head>
+<body>
+    <div class="sidebar">
+        <h1>ARITHWISE</h1>
+        <a href="{{ url_for('supadmin_dashboard') }}" class="active">Admin</a>
+        <a href="{{ url_for('admin_employee') }}">Employee Details</a>
+        <a href="notice.html">Notification</a>
+        <a href="{{ url_for('admin_leave') }}">Leave</a>
+        <a href="{{ url_for('supadmin_attendance') }}">Attendance</a>
+        <a href="{{ url_for('admin_expense') }}">Expense</a>
+
+        <a href="{{ url_for('admin_announcement') }}">Announcements</a>
+        <a href="{{ url_for('admin_contact') }}">Contact</a>
+        <button class="logout-btn">Logout</button>
+    </div>
+    <div class="content">
+        <!-- Profile Section -->
+        <div class="profile-card">
+            <div class="profile-picture">
+                <!-- <img src="static\uploads\1724164594845.jpeg" alt="Profile Picture"> -->
+                <!-- <img src="{{ url_for('get_profile_picture', user_id=session.get('emp_id', session.get('admin_id', session.get('superadmin_id'))), role=session.get('role')) }}" alt="Profile Photo"> -->
+                <img src="{{ url_for('superadmin_photo') }}" alt="Superadmin Photo">
+
+            </div>
+            <div class="profile-info">
+                <h2> SUPERADMIN</h2>
+                <h3> MANAGE ARITHWISE</h3>
+            </div>
+            <div class="images-container">
+                <img src="static\images\image1.png" alt="image 1">
+                <h3 class="welcome-text">Welcome to your ARITHWISE!</h3>
+                <img src="static\images\image2.png" alt="image 2">
+            </div>
+        </div>
+   
+        <div class="container">
+            <!-- Summary Boxes -->
+            <div class="summary-container">
+                <div class="summary-box">Total Resources: <span id="total-Resources">25</span></div>
+                <div class="summary-box">Total Employees: <span id="total-Employees">19</span></div>
+                <div class="summary-box">Total Consultant: <span id="total-consultant">6</span></div>
+                <div class="summary-box">Total Interns: <span id="total-Interns">25</span></div>
+                <div class="summary-box">Male: <span id="Male">25</span></div>
+                <div class="summary-box">Female: <span id="Female">19</span></div>
+         
+            </div>
+        </div>
+       
+       <!-- Dashboard Section -->
+<div class="dashboard">
+ 
+    <!-- Attendance Overview -->
+    <div class="card">
+        <h3>Attendance Summary</h3>
+        <canvas id="attendanceLineChart"></canvas>
+    </div>
+ 
+    <!-- Employee Distribution -->
+    <div class="card">
+        <h3>Employee Distribution</h3>
+        <canvas id="myChart"></canvas>
+    </div>
+ 
+    <!-- Employee List -->
+    <div class="card">
+        <h3>Total Hours </h3>
+        <input type="text" id="employeeSearch" placeholder="Search Employee..." oninput="updateChart()">
+        <select id="timeFilter" onchange="updateChart()">
+            <option value="weekly">Weekly</option>
+            <option value="today">Today</option>
+            <option value="monthly">Monthly</option>
+        </select>
+        <canvas id="employeeHoursChart"></canvas>
+    </div>
+ 
+    <!-- Meal Summary (Smaller Card) -->
+    <div class="card">
+        <h3>Meal Summary</h3>
+        <canvas id="mealChart"></canvas>
+    </div>
+ 
+    <!-- Employee Count by Project (Smaller Card) -->
+    <div class="card">
+        <h3>Employee Count by Project</h3>
+        <canvas id="employeeGraph"></canvas>
+    </div>
+ 
+    <!-- Gender Distribution (Smaller Card) -->
+    <div class="card">
+        <h3>Gender Distribution</h3>
+        <canvas id="genderChart"></canvas>
+    </div>
+ 
+</div>
+ 
+   
+        <!-- <script src="admin_dashboard.js"></script> Include script at the end -->
+        <!-- <script src="../static/admin_dashboard.js"></script> -->
+        <script src="{{ url_for('static', filename='admin_dashboard.js') }}"></script>
+
+</body>
+</html>

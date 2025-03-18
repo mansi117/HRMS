@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>attendence</title>
+</head>
+<body>
+    <style>
+ /* Reset and Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+ 
+body {
+    font-family: Calibri, sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    height: 100vh;  
+}
+ 
+/* Sidebar Styles */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background-color: #2a2a72;
+    color: #fff;
+    position: fixed;
+    padding: 20px;
+}
+ 
+.sidebar a {
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+ 
+.sidebar a.active {
+    background-color: #fff;
+    color: #1e1e50;
+}
+ 
+.sidebar a:hover {
+    background-color: #303080;
+}
+ 
+/* Logout Button */
+.logout-btn {
+    background-color: #d9534f;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+ 
+.logout-btn:hover {
+    background-color: #c9302c;
+}
+ 
+/* Main Content Area */
+.content {
+    flex: 1;
+    margin-left: 260px;
+    padding: 20px;
+    overflow-y: auto;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+ 
+table th,
+table td {
+    padding: 15px;
+    text-align: left;
+    font-size: 1em;
+    border: 1px solid #ddd;
+}
+ 
+table th {
+    background-color: #2a2a72;
+    color: white;
+}
+ 
+/* Main Content Area */
+.content {
+    flex: 1;
+    margin-left: 260px;  /* Ensuring content does not overlap sidebar */
+    padding: 20px;
+    overflow-y: auto;
+}
+ 
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2a2a72;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+ 
+/* Grid Layouts */
+.filter-checkin-container, .summary-meal-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+ 
+/* Section Containers */
+.filter,
+.checkin-section,
+.attendance-section,
+.approval-section,
+.specific-employee-section,
+.meal-section {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+   
+    border: 1px solid #ddd;
+}
+ 
+/* Forms and Filters */
+.filter label {
+    font-weight: bold;
+    color: #2a2a72;
+}
+ 
+.filter input,
+.filter select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+}
+ 
+.filter button,
+.attendance-buttons button,
+.specificEmployee-buttons BUTTON,
+.meal-section button {
+    padding: 10px;
+    background-color: #2a2a72;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+}
+ 
+.filter button:hover,
+.attendance-buttons button:hover,
+.meal-section button:hover {
+    background-color: #1f1f5a;
+}
+ 
+/* Table Container */
+.checkin-section,
+.attendance-section,
+.specific-employee-section {
+    overflow: hidden;
+}
+ 
+/* Table Wrapper to Control Scrolling */
+.table-wrapper {
+    max-height: 200px; /* Ensures visibility of 3 rows */
+    overflow-y: auto;
+    border: 1px solid #ddd; /* Optional: adds a border for clarity */
+}
+ 
+/* Table Layout */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* Ensures columns adjust properly */
+}
+ 
+/* Sticky Table Header */
+table thead {
+    position: sticky;
+    top: 0;
+    background: #2a2a72;
+    color: white;
+    z-index: 10;
+    display: table-header-group; /* Prevents header from scrolling */
+}
+ 
+/* Table Cells */
+table th,
+table td {
+    padding: 10px;
+    text-align: left;
+    font-size: 1em;
+    border: 1px solid #ddd;
+    white-space: nowrap; /* Ensures content stays in a single line */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Adds "..." if content is too long */
+}
+ 
+/* Table Body: Scrollable Rows */
+table tbody {
+    display: block;
+    max-height: 150px; /* Ensures only 3 rows are visible */
+    overflow-y: auto;
+    width: 100%;
+}
+ 
+/* Ensure Proper Column Alignment */
+table tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+ 
+/* Scrollbar Styling (Optional, for better UI) */
+.table-wrapper::-webkit-scrollbar {
+    width: 6px;
+}
+ 
+.table-wrapper::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+ 
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+ 
+ 
+ 
+ 
+/* Mobile Responsive */
+@media (max-width: 768px) {
+   
+    .content {
+        margin-left: 210px;
+        padding: 15px;
+    }
+ 
+    .filter-checkin-container {
+        grid-template-columns: 1fr; /* Stack elements */
+    }
+ 
+    table th, table td {
+        padding: 8px;
+        font-size: 0.9em;
+    }
+}
+ 
+ 
+ 
+    </style>
+     
+   
+ 
+        <div class="sidebar">
+            <h1>ARITHWISE</h1>
+            <a href="{{ url_for('supadmin_dashboard') }}" class="active">Admin</a>
+            <a href="{{ url_for('admin_employee') }}">Employee Details</a>
+            <a href="notice.html">Notification</a>
+            <a href="{{ url_for('admin_leave') }}">Leave</a>
+            <a href="{{ url_for('supadmin_attendance') }}">Attendance</a>
+            <a href="{{ url_for('admin_expense') }}">Expense</a>
+
+            <a href="{{ url_for('admin_announcement') }}">Announcements</a>
+            <a href="{{ url_for('admin_contact') }}">Contact</a>
+            <button class="logout-btn">Logout</button>
+        </div>
+         
+   
+   
+    <div class="content">
+        <div class="header">
+            <h1>SuperAdmin Attendance Dashboard</h1>
+         
+        </div>
+   
+        <div class="filter-checkin-container">
+            <div class="filter">
+                <h2>Filter Records</h2>
+                <label>From: <input type="date" id="fromDate"></label>
+                <label>To: <input type="date" id="toDate"></label>
+                <button onclick="filterRecords()">Apply</button>
+            </div>
+            <div class="checkin-section">
+                <h3>Check-in & Check-out</h3>
+                <div class="table-wrapper">
+                <table>
+                    <tr><th>Date</th><th>Employee</th><th>Check-in</th><th>Check-out</th><th>Total Hours</th></tr>
+                </table>
+                </div>
+            </div>
+        </div>
+         <!-- Section to show specific employee data -->
+    <div class="specific-employee-section">
+            <h3>View Employee Attendance</h3>
+        <label>Select Employee:
+            <select id="specificEmployeeSelect" onchange="showSpecificEmployee()">
+                <option value="all">All</option>
+                <option value="Ketki Jain">Ketki Jain</option>
+                <option value="Ganesh Kalyankar">Ganesh Kalyankar</option>
+                <option value="Mansi Patel">Mansi Patel</option>
+            </select>
+        </label>
+        <div class="table-wrapper">
+        <table id="specificEmployeeTable">
+            <tr><th>Date</th><th>Check-in</th><th>Check-out</th><th>Total Hours</th><th>Meal</th><th>Status</th></tr>
+        </table>
+        </div>
+ 
+        <div class="specificEmployee-buttons">
+       
+            <button onclick="exportSpecificEmployeeData()">Export Specific Employee</button>
+         
+                <button onclick="exportAllData()">Export All Employees</button>
+        </div> </div>
+       
+    </div>
+ 
+    </div>
+   
+    <!-- <script>
+        let attendanceData = [
+        { date: '2025-02-23', employee: 'Ketki Jain', checkIn: '09:00', checkOut: '18:00', totalHours: '9', meal: 'No', status: 'Pending' },
+        { date: '2025-02-23', employee: 'Ketki Jain', checkIn: '09:00', checkOut: '18:00', totalHours: '9', meal: 'No', status: 'Pending' },
+        { date: '2025-02-23', employee: 'Ketki Jain', checkIn: '09:00', checkOut: '18:00', totalHours: '9', meal: 'No', status: 'Pending' },
+        { date: '2025-02-23', employee: 'Ketki Jain', checkIn: '09:00', checkOut: '18:00', totalHours: '9', meal: 'No', status: 'Pending' },
+        { date: '2025-02-23', employee: 'Ketki Jain', checkIn: '09:00', checkOut: '18:00', totalHours: '9', meal: 'No', status: 'Pending' },
+ 
+        { date: '2025-02-23', employee: 'Ganesh Kalyankar', checkIn: '10:00', checkOut: '17:00', totalHours: '7', meal: 'No', status: 'Pending' },
+        { date: '2025-02-24', employee: 'Mansi Patel', checkIn: '09:15', checkOut: '18:15', totalHours: '9', meal: 'Yes', status: 'Approved' }
+    ];
+   
+    // Function to render the check-in table
+    function renderCheckinTable() {
+        let table = document.querySelector(".checkin-section table");
+        table.innerHTML = `
+            <tr><th>Date</th><th>Employee</th><th>Check-in</th><th>Check-out</th><th>Total Hours</th></tr>
+        `;
+       
+        attendanceData.forEach(record => {
+            table.innerHTML += `
+                <tr>
+                    <td>${record.date}</td>
+                    <td>${record.employee}</td>
+                    <td>${record.checkIn}</td>
+                    <td>${record.checkOut}</td>
+                    <td>${record.totalHours}</td>
+                </tr>
+            `;
+        });
+    }
+   
+    // Function to display specific employee records
+    function showSpecificEmployee() {
+        let selectedEmployee = document.getElementById("specificEmployeeSelect").value;
+        let table = document.getElementById("specificEmployeeTable");
+       
+        table.innerHTML = `
+            <tr><th>Date</th><th>Check-in</th><th>Check-out</th><th>Total Hours</th><th>Meal</th><th>Status</th></tr>
+        `;
+       
+        let filteredData = selectedEmployee === "all" ? attendanceData : attendanceData.filter(record => record.employee === selectedEmployee);
+       
+        filteredData.forEach(record => {
+            table.innerHTML += `
+                <tr>
+                    <td>${record.date}</td>
+                    <td>${record.checkIn}</td>
+                    <td>${record.checkOut}</td>
+                    <td>${record.totalHours}</td>
+                    <td>${record.meal}</td>
+                    <td>${record.status}</td>
+                </tr>
+            `;
+        });
+    }
+   
+    // Function to export all employee data
+    function exportAllData() {
+        let csvContent = "Date,Employee,Check-in,Check-out,Total Hours,Meal,Status\n";
+       
+        attendanceData.forEach(record => {
+            csvContent += `${record.date},${record.employee},${record.checkIn},${record.checkOut},${record.totalHours},${record.meal},${record.status}\n`;
+        });
+       
+        downloadCSV(csvContent, "All_Employees_Attendance.csv");
+    }
+   
+    // Function to export specific employee data
+    function exportSpecificEmployeeData() {
+        let selectedEmployee = document.getElementById("specificEmployeeSelect").value;
+        if (selectedEmployee === "all") {
+            alert("Please select a specific employee to export their data.");
+            return;
+        }
+       
+        let filteredData = attendanceData.filter(record => record.employee === selectedEmployee);
+        let csvContent = "Date,Check-in,Check-out,Total Hours,Meal,Status\n";
+       
+        filteredData.forEach(record => {
+            csvContent += `${record.date},${record.checkIn},${record.checkOut},${record.totalHours},${record.meal},${record.status}\n`;
+        });
+       
+        downloadCSV(csvContent, `${selectedEmployee}_Attendance.csv`);
+    }
+   
+    // Helper function to trigger CSV download
+    function downloadCSV(csvContent, filename) {
+        let blob = new Blob([csvContent], { type: "text/csv" });
+        let link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+   
+    // Ensure tables are rendered on page load
+    document.addEventListener("DOMContentLoaded", () => {
+        renderCheckinTable();
+        showSpecificEmployee();
+    });
+   
+</script> -->
+
+<script src="{{ url_for('static', filename='admin_attendance.js') }}"></script>
+
+</body>
+</html>  
+         
+ 

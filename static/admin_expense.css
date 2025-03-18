@@ -1,0 +1,143 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Calibri, sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background-color: #2a2a72;
+    color: #fff;
+    position: fixed;
+    padding: 20px;
+    box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h1 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar h1 i {
+    font-size: 24px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.sidebar a.active {
+    background-color: #fff;
+    color: #2a2a72;
+}
+
+.sidebar a:hover {
+    background-color: #4141a0;
+}
+
+.logout-btn {
+    background-color: #ff5757;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: #e04444;
+}
+
+/* Main Content Styling */
+.container {
+    margin-left: 260px;  /* Adjust to make space for sidebar */
+    padding: 20px;
+    width: calc(100% - 260px);
+}
+
+h2 {
+    color: #2a2a72;
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.table-container {
+    max-height: 500px;
+    overflow-y: auto;
+    margin-top: 20px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: center;
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background: #2a2a72;
+    color: white;
+    position: sticky;
+    top: 0;
+}
+
+/* Button Styles */
+.approve-btn, .reject-btn,.edit-btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.approve-btn ,.edit-btn {
+    background-color: #28a745;
+}
+
+.reject-btn {
+    background-color: #dc3545;
+}
+
+.approve-btn:hover {
+    background-color: #218838;
+}
+
+.reject-btn:hover {
+    background-color: #c82333;
+}
+

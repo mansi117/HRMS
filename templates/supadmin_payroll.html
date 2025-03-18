@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payroll Management</title>
+    <link rel="stylesheet" href="../static/admin_payroll.css">  
+
+</head>
+<body>
+ 
+    <div class="sidebar">
+        <h1>ARITHWISE</h1>
+        <a href="{{ url_for('supadmin_dashboard') }}" class="active">Admin</a>
+            <a href="{{ url_for('admin_employee') }}">Employee Details</a>
+            <a href="notice.html">Notification</a>
+            <a href="{{ url_for('admin_leave') }}">Leave</a>
+            <a href="{{ url_for('supadmin_attendance') }}">Attendance</a>
+            <a href="{{ url_for('admin_expense') }}">Expense</a>
+
+            <a href="{{ url_for('admin_announcement') }}">Announcements</a>
+            <a href="{{ url_for('admin_contact') }}">Contact</a>
+            <button class="logout-btn">Logout</button>
+        <button class="logout-btn">Logout</button>
+    </div>
+ 
+   
+    <div class="content">
+        <h2>Payroll Management</h2>
+   
+        <!-- Pending Invoices Table -->
+        <div class="table-container">
+            <h3>Pending Invoices</h3>
+            <div class="table-wrapper">
+                <table id="pendingTable">
+                    <thead>
+                        <tr>
+                            <th>Employee ID</th>
+                            <th>Name</th>
+                            <th>Invoice</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>EMP002</td><td>Rahul</td><td>Pending</td><td class="status pending">Pending</td><td><button>Send Reminder</button></td></tr>
+                        <tr><td>EMP003</td><td>Rohan</td><td>Pending</td><td class="status pending">Pending</td><td><button>Send Reminder</button></td></tr>
+                        <tr><td>EMP004</td><td>Sameer</td><td>Pending</td><td class="status pending">Pending</td><td><button>Send Reminder</button></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+   
+        <!-- Generated Salaries Table -->
+        <div class="table-container">
+            <h3>Generated Salaries</h3>
+            <div class="table-wrapper">
+                <table id="salaryTable">
+                    <thead>
+                        <tr>
+                            <th>Employee ID</th>
+                            <th>Name</th>
+                            <th>Invoice</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="salaryTableBody">
+                        <tr><td>EMP001</td><td>Aditi</td><td><a href="invoice.pdf" download>Download</a></td><td class="status pending">Pending</td><td><button onclick="generateslip(this, 'EMP001', 'Aditi')">Generate Slip</button></td></tr>
+                        <tr><td>EMP001</td><td>Aditi</td><td><a href="invoice.pdf" download>Download</a></td><td class="status pending">Pending</td><td><button onclick="generateslip(this, 'EMP001', 'Aditi')">Generate Slip</button></td></tr>
+                        <tr><td>EMP001</td><td>Aditi</td><td><a href="invoice.pdf" download>Download</a></td><td class="status pending">Pending</td><td><button onclick="generateslip(this, 'EMP001', 'Aditi')">Generate Slip</button></td></tr>
+                        <tr><td>EMP001</td><td>Aditi</td><td><a href="invoice.pdf" download>Download</a></td><td class="status pending">Pending</td><td><button onclick="generateslip(this, 'EMP001', 'Aditi')">Generate Slip</button></td></tr>
+                        <tr><td>EMP001</td><td>Aditi</td><td><a href="invoice.pdf" download>Download</a></td><td class="status pending">Pending</td><td><button onclick="generateslip(this, 'EMP001', 'Aditi')">Generate Slip</button></td></tr>
+                        <tr><td>EMP001</td><td>Aditi</td><td><a href="invoice.pdf" download>Download</a></td><td class="status pending">Pending</td><td><button onclick="generateslip(this, 'EMP001', 'Aditi')">Generate Slip</button></td></tr>
+                        <tr><td>EMP001</td><td>Aditi</td><td><a href="invoice.pdf" download>Download</a></td><td class="status pending">Pending</td><td><button onclick="generateslip(this, 'EMP001', 'Aditi')">Generate Slip</button></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+   
+        <!-- Contact Table -->
+        <div class="table-container">
+            <h3>Contact Information</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Contact</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Payroll Support</td>
+                            <td><a href="mailto:payroll@arithwise.com">payroll@arithwise.com</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+   
+    <!-- Salary Modal -->
+<div id="salaryModal" class="popup" style="display: none;">
+    <h3>Generate Slip</h3>
+    <label>Employee Name:</label>
+    <input type="text" id="employeeName" readonly>
+    <label>Basic Salary:</label>
+    <input type="number" id="basicSalary" placeholder="Basic Salary" oninput="calculateNetSalary()">
+    <label>Tax Deduction:</label>
+    <input type="number" id="taxDeduction" placeholder="Tax Deduction" oninput="calculateNetSalary()">
+    <label>Net Salary:</label>
+    <input type="number" id="netSalary" placeholder="Net Salary" readonly>
+    <label>Account Number:</label>
+    <input type="text" id="accountNumber" placeholder="Bank Account Number">
+    <label>IFSC Code:</label>
+    <input type="text" id="ifscCode" placeholder="Bank IFSC Code">
+    <button onclick="processSalary()">Process & Generate PDF</button>
+    <button onclick="closeModal()">Close</button>
+</div>
+ 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="../static/admin_payroll.js"></script>
+
+ 
+   
+</BODY>
+</html>

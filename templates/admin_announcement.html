@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Announcements</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../static/admin_announcement.css">  
+
+</head>
+
+<body>
+ 
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h1>ARITHWISE</h1>
+        <a href="{{ url_for('admin_dashboard') }}">Admin</a>
+        <a href="{{ url_for('admin_employee') }}" >Employee Details</a>
+        <a href="notice.html">Notification</a>
+        <a href="{{ url_for('admin_leave') }}">Leave</a>
+        <a href="{{ url_for('admin_attendance') }}">Attendance</a>
+        <a href="{{ url_for('admin_announcement') }}"class="active">Announcements</a>
+        <a href="{{ url_for('admin_contact') }}">Contact</a>
+        <button class="logout-btn">Logout</button>
+    </div>
+ 
+ 
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="feedback-wrapper">
+            <h2>Manage Announcements</h2>
+            <button class="btn-add" onclick="openModal()">+ Add Announcement</button>
+ 
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sr. No</th>
+                        <th>Subject</th>  <!-- Changed header to Subject -->
+                        <th>Description</th>  <!-- Changed header to Description -->
+                        <th>Link</th>  <!-- Changed header to Link -->
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="announcementTable"></tbody>
+            </table>
+           
+            <!-- Pop-up Modal Form -->
+            <div id="announcementModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <h2>Add / Edit Announcement</h2>
+                    <input type="hidden" id="editIndex">
+                    <input type="text" id="subject" placeholder="Subject">  <!-- Changed field name to Subject -->
+                    <input type="text" id="description" placeholder="Description">  <!-- Changed field name to Description -->
+                    <input type="text" id="link" placeholder="Paste Link">  <!-- Changed field name to Link -->
+               
+                    <button class="btn-submit" onclick="addOrUpdateAnnouncement()">Save</button>
+                </div>
+            </div>
+           
+            <script src="../static/admin_announcement.js"></script>
+
+   
+</body>
+</html>
+ 
+ 
