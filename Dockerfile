@@ -20,7 +20,7 @@ FROM python:3.12
 WORKDIR /app
 
 # COPY . /app  # ✅ Ensure this copies the entire project, including templates
-COPY ./ /app/
+COPY ["./", "/app/"]
 
 RUN pip install -r requirements.txt
 
