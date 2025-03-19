@@ -10,9 +10,12 @@ from flask import send_from_directory
 from datetime import datetime, timedelta
 from datetime import date
 
-
+  
 app = Flask(__name__)
-app.secret_key = 'mansi'  # For session management
+# app.secret_key = 'mansi'  # For session management
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
+
+
 # app.config["SESSION_PERMANENT"] = True 
 app.config["SESSION_TYPE"] = "filesystem"
 app.config["SESSION_PERMANENT"] = False
@@ -31,13 +34,20 @@ ALLOWED_EXTENSIONS = {"pdf", "jpg", "jpeg", "png", "doc", "docx"}
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 # Database configuration
+# db_config = {
+#     "host": "localhost",
+#     "database": "HRM",
+#     "user": "postgres",
+#     "password": "mansi",
+#     "port": "5432",
+# }
 db_config = {
-    "host": "localhost",
-    "database": "HRM",
-    "user": "postgres",
-    "password": "mansi",
-    "port": "5432",
-}
+    "host": os.getenv("DB_HOST", "localhost"),
+    "database": os.getenv("DB_NAME", "HRM"),
+    "user": os.getenv("DB_USER", "postgres"),
+    "password": os.getenv("DB_PASSWORD", "mansi"),
+    "port": os.getenv("DB_PORT", "5432"),
+} 
 
 # Function to create a database connection
 def get_db_connection():
@@ -1826,10 +1836,14 @@ def send_default_photo():
 def supadmin_attendance():
     return render_template('supadmin_attendance.html')
 
+DEBUG_MODE = os.getenv('DEBUG_MODE') == 'TRUE'
+
+# if __name__ == "__main__":
+#     app.run(debug=True, host='0.0.0.0')
+
+
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0')
-
-
+    app.run(debug=DEBUG_MODE , host='0.0.0.0')
 
 
 
