@@ -11,7 +11,9 @@ from datetime import datetime, timedelta
 from datetime import date
 
   
-app = Flask(__name__)
+# app = Flask(__name__)
+app = Flask(__name__, template_folder="../templates")  # Explicitly set template folder
+
 # app.secret_key = 'mansi'  # For session management
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
