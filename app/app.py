@@ -1843,7 +1843,9 @@ DEBUG_MODE = os.getenv('DEBUG_MODE') == 'TRUE'
 
 
 if __name__ == "__main__":
-    app.run(debug=DEBUG_MODE , host='0.0.0.0')
+    port = int(os.getenv("PORT", 8000))  # Use Railway's assigned port
+    # app.run(debug=DEBUG_MODE , host='0.0.0.0')
+    app.run(host="0.0.0.0", port=port)
 
 
 
