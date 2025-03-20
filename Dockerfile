@@ -15,15 +15,24 @@
 # CMD ["poetry", "run", "gunicorn", "-w", "4", "-b", "0.0.0.0:8000", "app.app:app"]
 
 
-FROM python:3.12
+# FROM python:3.12
+
+# WORKDIR /app
+
+# # COPY . /app  # ✅ Ensure this copies the entire project, including templates
+# COPY ["./", "/app/"]
+
+# RUN pip install -r requirements.txt
+
+# EXPOSE 8000
+
+# CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:8000", "app.app:app"]
+FROM python:3.9-slim
 
 WORKDIR /app
 
-# COPY . /app  # ✅ Ensure this copies the entire project, including templates
-COPY ["./", "/app/"]
+COPY . /app
 
 RUN pip install -r requirements.txt
 
-EXPOSE 8000
-
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:8000", "app.app:app"]
+CMD ["gunicorn", "app.app:app", "--bind", "0.0.0.0:8000"]
